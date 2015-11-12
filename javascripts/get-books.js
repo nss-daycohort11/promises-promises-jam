@@ -19,13 +19,15 @@ define(function(require) {
           */
           types = Object.keys( types ).map(key => types[ key ]);
           books = Object.keys( books ).map(key => books[ key ]);
-
+          console.log("books", books);
+          console.log("types", types);
           /*
             I'm using the lodash `find()` method here.
               https://lodash.com/docs#find
            */
           var books = books.map(book => {
             book.type = _.find(types, { id:book.booktype }).label;
+            console.log("book", book);
             return book;
           });
 

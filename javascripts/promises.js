@@ -4,22 +4,41 @@ requirejs.config({
     'jquery': '../lib/bower_components/jquery/dist/jquery.min',
     'lodash': '../lib/bower_components/lodash/lodash.min',
     'hbs': '../lib/bower_components/require-handlebars-plugin/hbs',
-    'bootstrap': '../lib/bower_components/bootstrap/dist/js/bootstrap.min'
+    'bootstrap': '../lib/bower_components/bootstrap/dist/js/bootstrap.min',
+    'q': '../lib/bower_components/q/q'
   },
   shim: {
-    'bootstrap': ['jquery']
+    'bootstrap': ['jquery'],
+    "firebase": {
+        exports: "Firebase"
+    }
   }
 });
 
 requirejs(
-  ["jquery", "hbs", "bootstrap", "get-books"], 
-  function($, Handlebars, bootstrap, books) {
+  ["jquery", "hbs", "bootstrap", "get-books", "books_data", "category_data"], 
+  function($, Handlebars, bootstrap, books, bookData, typeData) {
 
-    books.load(function(bookArray) {
+    typeData.getBookType()
+    .then( function(types) {
+      return bookData.getBooks(types);
+    })
+    .then( function(books) {
+      console.log("newbooks", books);
       require(['hbs!../templates/books'], function(bookTpl) {
-        $("#bookList").html(bookTpl({ books:bookArray }));
+        $("#bookList").html(bookTpl({ books }));
       });
+    })
+    .fail( function(error) {
+      console.log("error", error);
     });
+    
+
+    // books.load(function(bookArray) {
+    //   require(['hbs!../templates/books'], function(bookTpl) {
+    //     $("#bookList").html(bookTpl({ books:bookArray }));
+    //   });
+    // });
 
     /* Here's some pseudo-code for how it should look once you
        start using promises
