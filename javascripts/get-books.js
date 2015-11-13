@@ -4,9 +4,8 @@ define(function(require) {
   return {
     load: function(fn) {
       // This XHR should be in its own require module, not here
-      function (types, books) {
 
-        
+
       // $.ajax("https://nss-book-store.firebaseio.com/booktypes.json").done(function(types) {
 
         // // This XHR does belong here

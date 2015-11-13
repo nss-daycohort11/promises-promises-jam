@@ -16,12 +16,12 @@ requirejs.config({
 });
 
 requirejs(
-  ["jquery", "hbs", "lodash", "bootstrap", "get-books", "books_data", "category_data"], 
-  function($, Handlebars, _, bootstrap, books, bookData, typeData) {
+  ["jquery", "hbs", "lodash", "bootstrap", "books_data", "category_data"], 
+  function($, Handlebars, _, bootstrap, bookData, typeData) {
 
     var Types = {};
     var Books = {};
-    var Final = {};
+    // var Final = {};
 
     typeData()
     .then( function(types) {
@@ -30,27 +30,27 @@ requirejs(
       return bookData();
     })
     .then( function(books) {
-      Books = books;
+      // Books = books;
       console.log("Types2", Types);
-      console.log("Books", Books);
+      // console.log("Books", Books);
         Types = Object.keys( Types ).map(key => Types[ key ]);
-        Books = Object.keys( Books ).map(key => Books[ key ]);
+        books = Object.keys( books ).map(key => books[ key ]);
       console.log("TypesArray", Types);
-      console.log("BooksArray", Books);
-      Final = Books.map(book => {
-              book.type = _.find(Types, { id:book.booktype }).label;
-              console.log("book", book);
-              return book;
+      // console.log("BooksArray", Books);
+          books.map(book => {
+          book.type = _.find(Types, { id:book.booktype }).label;
+          console.log("book", book);
+          return book;
           });
-      console.log("Final", Final);
+      // console.log("Final", Final);
       require(['hbs!../templates/books'], function(bookTpl) {
-        $("#bookList").html(bookTpl({ books }));
+        $("#bookList").html(bookTpl({books}));
       });
     })
     .fail( function(error) {
       console.log("error", error);
     });
-    
+    console.log("FinalOutside");
 
     // books.load(function(bookArray) {
     //   require(['hbs!../templates/books'], function(bookTpl) {
