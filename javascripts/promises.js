@@ -21,7 +21,7 @@ requirejs(
 
     var Types = {};
     // var Books = {};
-    var Final = {};
+    // var Final = {};
 
     typeData()
     .then( function(types) {
@@ -36,7 +36,7 @@ requirejs(
         books = Object.keys( books ).map(key => books[ key ]);
       // console.log("TypesArray", Types);
       // console.log("BooksArray", Books);
-        Final = books.map(book => {
+          books.map(book => {
           book.type = _.find(Types, { id:book.booktype }).label;
           // console.log("book", book);
           return book;
@@ -52,38 +52,12 @@ requirejs(
       require(['hbs!../templates/books'], function (bookTpl) {
         $("#bookList").html(bookTpl({books}));
       });
-    console.log("FinalInside", Final);
+    // console.log("FinalInside", Final);
     })
     .fail( function(error) {
       console.log("error", error);
     });
-    console.log("FinalOutside", Final);
-
-    // books.load(function(bookArray) {
-    //   require(['hbs!../templates/books'], function(bookTpl) {
-    //     $("#bookList").html(bookTpl({ books:bookArray }));
-    //   });
-    // });
-
-    /* Here's some pseudo-code for how it should look once you
-       start using promises
-
-    getBookTypes()
-      .then(function(types) {
-        getBooks(types);
-      })
-      .then(function(books) {
-        // add the type key to each book that is currently
-        // being performed in the get-books file
-
-        // then bind the template to the data 
-        // (p.s. make the handlebar template a module dependency)
-        require(['hbs!../templates/books'], function(bookTpl) {
-          $("#bookList").html(bookTpl({ books:bookArray }));
-        });
-
-      })
-     */
+    // console.log("FinalOutside", Final);
 
   }
 );

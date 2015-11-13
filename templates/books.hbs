@@ -3,7 +3,10 @@
 <div class="row book type{{booktype}}">
   <h3>{{ title }}</h3>
   <h4>{{ author }}</h4>
-  <p>{{ synopsis }}</p>
+  <div>
+  	<button data-toggle="collapse" data-target="#{{year}}">Synopsis</button>
+  	<div id="{{year}}" class="collapse">{{ synopsis }}</div>
+  </div>
   <section>{{ type }}</section>
   <p>{{ publisher}} ({{year}})</p>
 </div>
