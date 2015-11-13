@@ -1,6 +1,5 @@
 define(["q", "jquery"], function(Q, $) {
-  return {
-    getBooks: function() {
+  return function() {
     var deferred = Q.defer();
 
     $.ajax({ url: "https://nss-book-store.firebaseio.com/books.json" })
@@ -18,6 +17,5 @@ define(["q", "jquery"], function(Q, $) {
       });
 
     return deferred.promise;
-    } //--end getBooks
   }; //--end return  
 }); //--end define

@@ -16,15 +16,33 @@ requirejs.config({
 });
 
 requirejs(
-  ["jquery", "hbs", "bootstrap", "get-books", "books_data", "category_data"], 
-  function($, Handlebars, bootstrap, books, bookData, typeData) {
+  ["jquery", "hbs", "lodash", "bootstrap", "get-books", "books_data", "category_data"], 
+  function($, Handlebars, _, bootstrap, books, bookData, typeData) {
 
-    typeData.getBookType()
+    var Types = {};
+    var Books = {};
+    var Final = {};
+
+    typeData()
     .then( function(types) {
-      return bookData.getBooks(types);
+      Types = types;
+      console.log("Types", Types);
+      return bookData();
     })
     .then( function(books) {
-      console.log("newbooks", books);
+      Books = books;
+      console.log("Types2", Types);
+      console.log("Books", Books);
+        Types = Object.keys( Types ).map(key => Types[ key ]);
+        Books = Object.keys( Books ).map(key => Books[ key ]);
+      console.log("TypesArray", Types);
+      console.log("BooksArray", Books);
+      Final = Books.map(book => {
+              book.type = _.find(Types, { id:book.booktype }).label;
+              console.log("book", book);
+              return book;
+          });
+      console.log("Final", Final);
       require(['hbs!../templates/books'], function(bookTpl) {
         $("#bookList").html(bookTpl({ books }));
       });
