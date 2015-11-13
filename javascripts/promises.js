@@ -20,8 +20,8 @@ requirejs(
   function($, Handlebars, _, bootstrap, bookData, typeData) {
 
     var Types = {};
-    var Books = {};
-    // var Final = {};
+    // var Books = {};
+    var Final = {};
 
     typeData()
     .then( function(types) {
@@ -30,27 +30,27 @@ requirejs(
       return bookData();
     })
     .then( function(books) {
-      // Books = books;
-      console.log("Types2", Types);
+      // console.log("Types2", Types);
       // console.log("Books", Books);
         Types = Object.keys( Types ).map(key => Types[ key ]);
         books = Object.keys( books ).map(key => books[ key ]);
-      console.log("TypesArray", Types);
+      // console.log("TypesArray", Types);
       // console.log("BooksArray", Books);
-          books.map(book => {
+        Final = books.map(book => {
           book.type = _.find(Types, { id:book.booktype }).label;
-          console.log("book", book);
+          // console.log("book", book);
           return book;
           });
       // console.log("Final", Final);
       require(['hbs!../templates/books'], function(bookTpl) {
         $("#bookList").html(bookTpl({books}));
       });
+    console.log("FinalInside", Final);
     })
     .fail( function(error) {
       console.log("error", error);
     });
-    console.log("FinalOutside");
+    console.log("FinalOutside", Final);
 
     // books.load(function(bookArray) {
     //   require(['hbs!../templates/books'], function(bookTpl) {
