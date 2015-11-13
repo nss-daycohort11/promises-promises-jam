@@ -33,6 +33,8 @@ requirejs(
       // Books = books;
       console.log("Types2", Types);
       // console.log("Books", Books);
+
+      //turns object of objects into array of objects
       Types = Object.keys( Types ).map(key => Types[ key ]);
       books = Object.keys( books ).map(key => books[ key ]);
       console.log("TypesArray", Types);
