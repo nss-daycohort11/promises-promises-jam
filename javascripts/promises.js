@@ -16,8 +16,8 @@ requirejs.config({
 });
 
 requirejs(
-  ["jquery", "hbs", "lodash", "bootstrap", "books_data", "category_data"], 
-  function($, Handlebars, _, bootstrap, bookData, typeData) {
+  ["jquery", "hbs", "lodash", "bootstrap", "books_data", "category_data", "unique-types", "filter"], 
+  function($, Handlebars, _, bootstrap, bookData, typeData, uniqueTypes, filter) {
 
     var Types = {};
     // var Books = {};
@@ -42,7 +42,14 @@ requirejs(
           return book;
           });
       // console.log("Final", Final);
-      require(['hbs!../templates/books'], function(bookTpl) {
+
+      var unique = uniqueTypes(books);
+      console.log("unique", unique);
+      require(['hbs!../templates/select'], function (selectTemplate) {
+        $("#select").html(selectTemplate(unique));
+      });
+
+      require(['hbs!../templates/books'], function (bookTpl) {
         $("#bookList").html(bookTpl({books}));
       });
     console.log("FinalInside", Final);
