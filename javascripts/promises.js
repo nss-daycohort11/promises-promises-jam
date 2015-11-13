@@ -20,7 +20,7 @@ requirejs(
   function($, Handlebars, _, bootstrap, bookData, typeData, uniqueTypes, filter) {
 
     var Types = {};
-    var Books = {};
+    // var Books = {};
     // var Final = {};
 
     typeData()
@@ -33,15 +33,15 @@ requirejs(
       // Books = books;
       console.log("Types2", Types);
       // console.log("Books", Books);
-        Types = Object.keys( Types ).map(key => Types[ key ]);
-        books = Object.keys( books ).map(key => books[ key ]);
+      Types = Object.keys( Types ).map(key => Types[ key ]);
+      books = Object.keys( books ).map(key => books[ key ]);
       console.log("TypesArray", Types);
       // console.log("BooksArray", Books);
-          books.map(book => {
-          book.type = _.find(Types, { id:book.booktype }).label;
-          console.log("book", book);
-          return book;
-          });
+      books.map(book => {
+      book.type = _.find(Types, { id:book.booktype }).label;
+      console.log("book", book);
+      return book;
+      });
       // console.log("Final", Final);
 
       var unique = uniqueTypes(books);
